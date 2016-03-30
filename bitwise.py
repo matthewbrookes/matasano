@@ -7,4 +7,4 @@ def fixedXOR(hex1, hex2):
     for (x,y) in zip (raw1, raw2):
         hex_sum_as_int *= (16*16)
         hex_sum_as_int += x^y
-    return format(hex_sum_as_int, 'x')
+    return "{0:0{1}x}".format(hex_sum_as_int, len(hex1))
