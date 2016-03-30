@@ -1,5 +1,5 @@
 import EnglishUtils
-import bitwise
+import Bitwise
 
 
 def guess_single_character_xor(hex_string):
