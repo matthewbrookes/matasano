@@ -9,9 +9,8 @@ def fixedXOR(hex1, hex2):
         hex_sum_as_int += x^y
     return "{0:0{1}x}".format(hex_sum_as_int, len(hex1))
 
-def repeat_key_XOR(plaintext, key):
-    ''' Returns encrypted form of plaintext using the key for repeat XOR '''
-    hex_rep_plaintext = base64.b16encode(plaintext.encode())
+def repeat_key_XOR(hex_rep_plaintext, key):
+    ''' Returns encrypted form of hex plaintext using the key for repeat XOR '''
     cipher_text = ''
     key_index = 0
     bytes_in_hex_rep_plaintext = [
