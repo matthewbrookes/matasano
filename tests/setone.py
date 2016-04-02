@@ -1,4 +1,5 @@
 import unittest
+'''
 import ChallengeUtils
 import Conversion
 import Bitwise
@@ -6,6 +7,9 @@ import challenge4
 import challenge6
 import challenge7
 import challenge8
+'''
+from setone import *
+from utils import *
 from base64 import b16encode
 
 class SetOneTests(unittest.TestCase):

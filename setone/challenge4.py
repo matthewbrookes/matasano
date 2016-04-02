@@ -1,5 +1,6 @@
-import ChallengeUtils
-import EnglishUtils
+import utils.ChallengeUtils as ChallengeUtils
+import utils.EnglishUtils as EnglishUtils
+
 def main():
     cipher_file = open("challenge-data/4.txt", "r")
     best_score = -100

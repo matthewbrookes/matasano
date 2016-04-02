@@ -1,6 +1,6 @@
-import Bitwise
-import ChallengeUtils
-import EnglishUtils
+from utils import Bitwise as Bitwise
+from utils import ChallengeUtils as ChallengeUtils
+from utils import EnglishUtils as EnglishUtils
 from queue import PriorityQueue
 from base64 import b64decode, b16encode, b16decode
 

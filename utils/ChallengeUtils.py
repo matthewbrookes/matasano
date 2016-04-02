@@ -1,6 +1,6 @@
-import EnglishUtils
+from . import EnglishUtils
 import string
-import Bitwise
+from . import Bitwise
 
 
 def guess_single_character_xor(hex_string):
