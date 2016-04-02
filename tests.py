@@ -4,6 +4,7 @@ import Conversion
 import Bitwise
 import challenge4
 import challenge6
+import challenge7
 from base64 import b16encode
 
 class SetOneTests(unittest.TestCase):
@@ -49,6 +50,12 @@ class SetOneTests(unittest.TestCase):
         expected_result = expected_result_file.read()
         expected_result_file.close()
         self.assertEqual(expected_result, challenge6.main())
+
+    def test_ChallengeSeven(self):
+        expected_result_file = open("./challenge-data/7-decrypted.txt")
+        expected_result = expected_result_file.read()
+        expected_result_file.close()
+        self.assertEqual(expected_result, challenge7.main())
 
 if __name__ == '__main__':
     unittest.main()

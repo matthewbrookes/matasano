@@ -1,2 +1,4 @@
-Matasano Crypto Challenges
-==========================
+Matasano Crypto Challenges                                    
+========================== 
+### Dependencies
+* Pycrypto 
