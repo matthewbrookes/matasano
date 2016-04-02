@@ -1,13 +1,4 @@
 import unittest
-'''
-import ChallengeUtils
-import Conversion
-import Bitwise
-import challenge4
-import challenge6
-import challenge7
-import challenge8
-'''
 from setone import *
 from utils import *
 from base64 import b16encode
@@ -72,5 +63,18 @@ class SetOneTests(unittest.TestCase):
                            "40deb0ab51b29933f2c123c58386b06fba186a")
         self.assertEqual(expected_result, challenge8.main())
 
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(SetOneTests("test_ChallengeOne"))
+    suite.addTest(SetOneTests("test_ChallengeTwo"))
+    suite.addTest(SetOneTests("test_ChallengeThree"))
+    suite.addTest(SetOneTests("test_ChallengeFour"))
+    suite.addTest(SetOneTests("test_ChallengeFive"))
+    suite.addTest(SetOneTests("test_ChallengeSix"))
+    suite.addTest(SetOneTests("test_ChallengeSeven"))
+    suite.addTest(SetOneTests("test_ChallengeEight"))
+    return suite
+
 if __name__ == '__main__':
-    unittest.main()
+    runner = unittest.TextTestRunner()
+    runner.run(suite())

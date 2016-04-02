@@ -10,3 +10,4 @@ From the top level execute python files using full module names e.g.  `python -m
 
 ###Running tests
 From the top level execute tests for specific sets using the full module name of the test suite e.g. `python -m tests.setone`
+From the top level execute tests for all sets using the command `python -m tests.allsets`
