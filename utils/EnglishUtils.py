@@ -1,3 +1,6 @@
+import string
+
+
 def score_word(word):
     ''' 
     Assigns a score to the english-like characteristics of a word
@@ -24,7 +27,7 @@ def score_word(word):
                 score -= 1
         # Reduce score if word contains weird character
         if(isinstance(char, str)
-                and not char.isalpha()
+                and char not in string.ascii_letters
                 and char not in {'\'', ' ', ':', ';'}):
             score -= 1
         index += 1
