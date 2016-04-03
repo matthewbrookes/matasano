@@ -2,6 +2,7 @@ from . import EnglishUtils
 import string
 from . import Bitwise
 import binascii
+from Crypto.Cipher import AES
 
 
 def guess_single_character_xor(hex_string):
@@ -43,6 +44,9 @@ def single_character_most_english_xor(hex_string):
             best_guess = i
     return best_guess
 
+def decrypt_aes_ecb(ciphertext, key):
+    decryption_suite = AES.new(key)
+    return decryption_suite.decrypt(ciphertext)
 
 def hamming_distance(string1, string2):
     ''' Returns hamming distance between two equal length strings '''
