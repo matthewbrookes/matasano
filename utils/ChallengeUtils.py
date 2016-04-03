@@ -1,6 +1,7 @@
 from . import EnglishUtils
 import string
 from . import Bitwise
+import binascii
 
 
 def guess_single_character_xor(hex_string):
@@ -63,3 +64,10 @@ def hamming_distance_hex(hex1, hex2):
         distance += xor & 1
         xor >>= 1
     return distance
+
+def PKCS7padding(string, num_bytes):
+    num_bytes_to_append = num_bytes - len(string)
+    padded_string = string
+    for i in range(num_bytes_to_append):
+        padded_string += chr(num_bytes_to_append)
+    return padded_string
