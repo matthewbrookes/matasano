@@ -3,7 +3,8 @@ import string
 from . import Bitwise
 import binascii
 from Crypto.Cipher import AES
-
+import pdb
+import base64
 
 def guess_single_character_xor(hex_string):
     ''' Returns the best guess of xoring hex_string with a character '''
@@ -47,6 +48,28 @@ def single_character_most_english_xor(hex_string):
 def decrypt_aes_ecb(ciphertext, key):
     decryption_suite = AES.new(key)
     return decryption_suite.decrypt(ciphertext)
+
+def encrypt_aes_ecb(plaintext, key):
+    encryption_suite = AES.new(key)
+    return encryption_suite.encrypt(plaintext)
+
+def decrypt_aes_cbc(ciphertext, key, iv):
+    ''' Decrypt a ciphertext in AES CBC form '''
+    # Pre: key same size as initialisation vector
+    # Pre: argument in byte hex form (e.g. "\x23\x10A$")
+    # Post: returns in byte hex form
+    plaintext_hex = b''
+    keysize = len(key)
+    first_block_decrypted = decrypt_aes_ecb(ciphertext[:keysize], key)
+    iv_hexlified = binascii.hexlify(iv)
+    plaintext_hex += Bitwise.fixedXOR(iv_hexlified,
+                                      base64.b16encode(first_block_decrypted)).encode()
+    for i in range(keysize, len(ciphertext) , keysize):
+        decrypted = decrypt_aes_ecb(ciphertext[i:i+keysize], key)
+        plaintext_hex += Bitwise.fixedXOR(base64.b16encode(decrypted),
+                                          base64.b16encode(ciphertext[i-keysize:i])).encode()
+    return plaintext_hex
+
 
 def hamming_distance(string1, string2):
     ''' Returns hamming distance between two equal length strings '''
