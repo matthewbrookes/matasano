@@ -12,8 +12,8 @@ def main():
     iv = b""
     for i in range(16):
         iv += b'\x00'
-    plaintext_hex = ChallengeUtils.decrypt_aes_cbc(ciphertext, key, iv)
-    return base64.b16decode(plaintext_hex, True).decode()
+    plaintext = ChallengeUtils.decrypt_aes_cbc(ciphertext, key, iv)
+    return plaintext.decode()
 
 if __name__ == "__main__":
     print(main())

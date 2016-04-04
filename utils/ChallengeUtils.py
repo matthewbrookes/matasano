@@ -57,18 +57,44 @@ def decrypt_aes_cbc(ciphertext, key, iv):
     ''' Decrypt a ciphertext in AES CBC form '''
     # Pre: key same size as initialisation vector
     # Pre: argument in byte hex form (e.g. "\x23\x10A$")
+    # Pre: all arguments length multiples of 16
     # Post: returns in byte hex form
-    plaintext_hex = b''
-    keysize = len(key)
-    first_block_decrypted = decrypt_aes_ecb(ciphertext[:keysize], key)
-    iv_hexlified = binascii.hexlify(iv)
-    plaintext_hex += Bitwise.fixedXOR(iv_hexlified,
-                                      base64.b16encode(first_block_decrypted)).encode()
-    for i in range(keysize, len(ciphertext) , keysize):
-        decrypted = decrypt_aes_ecb(ciphertext[i:i+keysize], key)
-        plaintext_hex += Bitwise.fixedXOR(base64.b16encode(decrypted),
-                                          base64.b16encode(ciphertext[i-keysize:i])).encode()
-    return plaintext_hex
+    c = []
+    c.append(iv)
+    blocksize = len(key)
+    for i in range(0, len(ciphertext), blocksize):
+        c.append(ciphertext[i: i+blocksize])
+    p = []
+    for i in range(int(len(ciphertext)/blocksize)):
+        last_cipher_block = c[i]
+        decoded = decrypt_aes_ecb(c[i+1], key)
+        xorstring = b''
+        for (x, y) in zip (decoded, last_cipher_block):
+            xor = x^y
+            xorstring += xor.to_bytes(1, "big")
+        p.append(xorstring)
+    return (b'').join(p)
+
+
+def encrypt_aes_cbc(plaintext, key, iv):
+    ''' Encrypt plaintext in AES CBC form '''
+    # Pre: key same size as initialisation vector
+    # Pre: argument in byte hex form (e.g. "\x23\x10A$")
+    # Pre: all arguments length multiples of 16
+    # Post: returns in byte hex form
+    c = []
+    c.append(iv)
+    blocksize = len(key)
+    for i in range(int(len(plaintext)/blocksize)):
+        plaintext_block = plaintext[i*blocksize: (i+1)*blocksize]
+        last_cipher_block = c[i]
+        xorstring = b''
+        for (x, y) in zip (plaintext_block, last_cipher_block):
+            xor = x^y
+            xorstring += xor.to_bytes(1, "big")
+        encrypted = encrypt_aes_ecb(xorstring, key)
+        c.append(encrypted)
+    return (b'').join(c[1:])
 
 
 def hamming_distance(string1, string2):
